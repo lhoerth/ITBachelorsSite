@@ -1,70 +1,90 @@
-.form-inline {
-    padding:10px;
-    margin-left: 3em;
-}
+<!DOCTYPE html>
 
-.form-inline > * {
-    margin:10px 3px !important;
-}
+<html>
+<head>
+    <title>BAS More Info Form</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"></script>    
+    <script>
+		window.onload = function(){
+			if (document.getElementById("status1").checked == true) {
+				document.getElementById("current").style.display = "block";
+			}
+		}
+	</script>
+</head>
+    
+<body>
+<div class="container">    
+    <h2 class="text-center">Tell Us More</h2>
+    <div class="wholeThing"> 
+        <form class="form-inline" method="post" action="PrerequisitsSoftDev.php" role="form" onsubmit="return validate()">
+            <div class="form-group">
+                <fieldset><legend>Please Select One:</legend>					
+					<input type="radio" value="current" name="status" id="status1">
+						<label for="status1">I am currently a student at Green River</label><br>
+					<div id="current" class="disabled">
+						<label for="sid" class="control-label">Student ID:&nbsp;</label>
+						<input type="number" class="form-control" id="sid" name="sid" required disabled>
+					</div>
+					<input type="radio" value="new" name="status" id="status2">
+						<label for="status2">I am a new student</label>
+				</fieldset>
+            </div>
+        
+    
+		<!--Check boxes to choose statuses-->
+			<div class="category">          
+				<fieldset>
+				<legend>I am a (please check all that apply):</legend>
+					<input type="checkbox" value="veteran" name="stats[]" >
+								<label>Veteran</label><br>
+					<input type="checkbox" value="international" name="stats[]" >
+								<label>International student</label><br>
+					<input type="checkbox" value="running-start" name="stats[]" >
+								<label>Running Start student</label><br>
+				</fieldset>
+			</div>
+			<label class="col-md-4 control-label" for="singlebutton"></label>
+			<div class="col-md-4">
+				<input type="submit" id="singlebutton" name="singlebutton" class="btn btn-primary center-block" value="Continue">
+			</div>
+		
+		</form>
+</div>
 
-.container {
-    max-width: 700px; 
-    background-color: #ddd;
-    border-radius: 0 0 5px 5px;
-    padding-bottom: 1em;
-    padding-right: 3em;
-}
+<script>
+	
+	var current = document.getElementById("current");
+	var sid = document.getElementById("sid");
+	var status1 = document.getElementById("status1");
+	var status2 = document.getElementById("status2");
+	
+	status1.onclick = change;
+	status2.onclick = change;
+	
+	function change() {
+		if (this.id=="status1"){
+			sid.disabled=false;
+			$("#current").show("slow");
+		} else {
+			sid.disabled=true;
+			$("#current").hide("slow");
+		}
+	}
+	
+	function validate() {
+		if (sid.disabled == false && sid.value.length != 9) {
+			alert("Student ID must be 9 digits.");
+			return false;
+		}
+	}
+	
+</script>     
 
-body {
-    padding-left: 45px;
-    padding-right: 45px;
-}
-
-.degreeHighlights {
-    position:relative;
-}
-
-.degreeHighlights div {
-    display: none;
-}
-
-.degreeHighlightsHover {
-    position:relative;
-}
-
-.degreeHighlightsHover div {
-    display:block;
-    position: absolute;
-    width: 25em;
-    top:.3em;
-    top:5px;
-    left:5px;
-    box-shadow:5px 16px 16px 5px;
-    z-index:1000;
-    background-color: #DDD;
-    padding:3px;
-    border-radius:4px;
-}
-
-.category{
-    margin-left: 4em;
-    margin-bottom: 2em;
-    margin-top: 2em;
-}
-
-.col-md-4{
-    padding-top: 1.5em; 
-    padding-bottom: 1.5em;
-}
-
-#current {
-	padding-left: 2em;
-	display: none;
-}
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-    /* display: none; <- Crashes Chrome on hover */
-    -webkit-appearance: none;
-    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
-}
+    
